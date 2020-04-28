@@ -1,26 +1,31 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, {Component} from 'react';
 import './App.css';
+import LoginForm from "./Component/LoginForm";
+import axios from 'axios';
 
-function App() {
+class App extends Component {
+
+  getEmployee = (e) => {
+    
+    let params = {
+      userName : e.target.elements.username.value,
+      password : e.target.elements.password.value
+    }
+    console.log(`Username is: ${params.username} and Passowrd is : ${params.password}`);
+
+    axios.post('http://localhost:8085/Authentication/authenticate',params,
+     {
+        'Content-Type': 'application/json'
+      })
+  }
+
+  render(){
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <header className="App-header">Login From Here</header>
+    <LoginForm getEmployee={this.getEmployee}/>
     </div>
   );
 }
-
+}
 export default App;
